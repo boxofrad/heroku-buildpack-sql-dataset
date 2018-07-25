@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+BUILD_DIR=$1
+BIN_DIR="$BUILD_DIR/.geckoboard"
+
+mkdir -p $BIN_DIR
+curl -L https://github.com/geckoboard/sql-dataset/releases/download/v0.2.3/sql-dataset-linux-amd64 -o $BIN_DIR/sql-dataset
+chmod +x $BIN_DIR/sql-dataset
+
+mkdir -p $BUILD_DIR/.profile.d
+cat <<EOF > $BUILD_DIR/.profile.d/sql-dataset-path.sh
+PATH=$HOME/.geckoboard:$PATH
+EOF
